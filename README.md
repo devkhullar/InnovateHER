@@ -1,3 +1,5 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/devkhullar/InnovateHER/HEAD)
+
 # DAY in the LIFE of an Astronomer
 
 This workshop is a part of the programme InnovateHER held at the University of Lethbridge, Lethbridge, Alberta, Canada. In this workshop, students aged 9-12 years are going to be given a very basic introduction to tools used by professional astronomers for their research, particularly using DS9 for astronomical imaging and using Python for point source identification in an astronomical image (see [notebook](notebook link)).
