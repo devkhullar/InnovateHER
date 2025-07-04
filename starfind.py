@@ -1,3 +1,9 @@
+################################################################################
+################### This file has been created to demonstrate ##################
+################### point source identification by coding     ##################
+################### to middle school students.                ##################
+###############################################################################
+
 import numpy as np
 import matplotlib.pyplot as plt
 from astropy.io import fits
