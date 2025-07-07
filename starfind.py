@@ -20,9 +20,9 @@ from astropy.wcs import WCS
 import warnings
 warnings.filterwarnings('ignore')
 
-M66_image_path = '/Users/undergradstudent/Research/XRB-Analysis/Galaxies/M66/HST/M66_mosaic_uvis_f555w_drc_sci.fits'
-hdu = fits.open(M66_image_path)
-data = fits.getdata(M66_image_path)
+IC5332_image_path = '/Users/undergradstudent/Downloads/IC5332/IC5332_f200w.fits'
+hdu = fits.open(IC5332_image_path)
+data = fits.getdata(IC5332_image_path)
 subset = data[3500:4000, 3500:4000]
 
 def show_galaxy():
@@ -34,12 +34,13 @@ def show_galaxy():
         data, 
         cmap='viridis',
         vmin=0, 
-        vmax=0.3,
+        vmax=1,
         origin='lower',
         interpolation='nearest'
     )
+    plt.show()
 
-def show_zoomed_image(data=subset, vmin=0, vmax=0.5):
+def show_zoomed_image(data=subset, vmin=0, vmax=1):
     '''
     Show a zoomed in image of the M66 galaxy.
     '''
@@ -48,7 +49,7 @@ def show_zoomed_image(data=subset, vmin=0, vmax=0.5):
     plt.show()
 
 def find_stars(
-    size, 
+    quality, 
     sensitivity,
     data=data,
     std_multiple=5,
@@ -57,7 +58,7 @@ def find_stars(
     radius=4,
     cmap='Greys',
     vmin=0,
-    vmax=0.3,
+    vmax=1,
     aperture_color='blue',
     create_regions=True
 ):
@@ -84,9 +85,9 @@ def find_stars(
     mean, median, std = sigma_clipped_stats(data, sigma=sigma)
     
     if sensitivity:
-        daofind = DAOStarFinder(fwhm=fwhm[size], threshold=threshold[sensitivity])
+        daofind = DAOStarFinder(fwhm=fwhm[quality], threshold=threshold[sensitivity])
     else:
-        daofind = DAOStarFinder(fwhm=fwhm[size], threshold=5*std)
+        daofind = DAOStarFinder(fwhm=fwhm[quality], threshold=5*std)
     objects = daofind(data)
 
     print(f"Found {len(objects)} stars")
@@ -114,12 +115,16 @@ def find_stars(
         xcoord_img = objects['xcentroid'].tolist()
         ycoord_img = objects['ycentroid'].tolist()
         xcoords_fk5, ycoords_fk5 = wcs.wcs_pix2world(xcoord_img, ycoord_img, 1)
-        WriteReg(sources=[xcoords_fk5, ycoords_fk5], coordsys="fk5", \
-                outfile="M66_stars.reg", \
-                radius=0.15, radunit="arcsec", label=objects["id"].tolist(), color='blue')
+        WriteReg(sources=[xcoords_fk5, ycoords_fk5],
+                 coordsys="fk5", \
+                 outfile="IC5332_stars.reg",
+                 radius=0.15,
+                 radunit="arcsec",
+                 label=objects["id"].tolist(), 
+                 color='blue')
 
 def find_stars_in_zoomed_image(
-    size, 
+    quality, 
     sensitivity,
     data=subset,
     std_multiple=5,
@@ -128,7 +133,7 @@ def find_stars_in_zoomed_image(
     radius=4,
     cmap='Greys',
     vmin=0,
-    vmax=0.3,
+    vmax=1,
     aperture_color='blue'
 ):
     '''Find all the stars in the zoomed in image of the M66 galaxy.'''
@@ -154,9 +159,9 @@ def find_stars_in_zoomed_image(
     mean, median, std = sigma_clipped_stats(data, sigma=sigma)
     
     if sensitivity:
-        daofind = DAOStarFinder(fwhm=fwhm[size], threshold=threshold[sensitivity])
+        daofind = DAOStarFinder(fwhm=fwhm[quality], threshold=threshold[sensitivity])
     else:
-        daofind = DAOStarFinder(fwhm=fwhm[size], threshold=5*std)
+        daofind = DAOStarFinder(fwhm=fwhm[quality], threshold=5*std)
     objects = daofind(data)
 
     print(f"Found {len(objects)} stars")
@@ -177,3 +182,7 @@ def find_stars_in_zoomed_image(
         )
         apertures.plot(color=aperture_color)
         plt.show()
+
+if __name__ == "__main__":
+    show_galaxy()
+    show_zoomed_image()
