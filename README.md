@@ -2,7 +2,7 @@
 
 # DAY in the LIFE of an Astronomer
 
-This workshop is a part of the programme InnovateHER held at the University of Lethbridge, Lethbridge, Alberta, Canada. In this workshop, students aged 9-12 years are going to be given a very basic introduction to tools used by professional astronomers for their research, particularly using DS9 for astronomical imaging and using Python for point source identification in an astronomical image (see [notebook](notebook link)).
+This workshop is a part of the programme InnovateHER held at the University of Lethbridge, Lethbridge, Alberta, Canada. In this workshop, students aged 9-12 years were given a very basic introduction to tools used by professional astronomers for their research, particularly using DS9 for astronomical imaging and using Python for point source identification in an astronomical image (see [notebook](/day-in-the-life-of-an-astronomer/find_stars.ipynb)).
 
 The students will be provided with laptops with DS9 preinstalled and will use the image of the galaxy M66 (NGC 3627) from the James Webb Space Telescope to initiate discussions on various astronomical concepts, from supermassive blackholes, stars, to extraterrestrial life. 
 
